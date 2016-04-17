@@ -1,6 +1,6 @@
 # Installation
 
-    $ npm install restify
+    $ npm install restify-abstract-config
 
 ## License
 
