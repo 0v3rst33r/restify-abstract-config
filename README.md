@@ -27,4 +27,4 @@ SOFTWARE.
 
 ## Bugs
 
-See <https://github.com/0verst33r/restify-abstract-config/issues>.
+See <https://github.com/0v3rst33r/restify-abstract-config/issues>.
