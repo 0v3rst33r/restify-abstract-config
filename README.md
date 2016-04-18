@@ -8,7 +8,7 @@
 
 ## Usage
 
-Use the AbstractAPI class to fast track configuring Restify HTTP methods to your
+Use the `AbstractAPI` class to fast track configuring Restify HTTP methods to your
 own concrete type's instance methods.
 
 For example:
@@ -90,7 +90,7 @@ module.exports = {
 }
 ```
 
-Ensure that the above `setup` function is called again as follows eg:
+Ensure that the above `setup` function is called again eg:
 
 ```javascript
 // $PROJECT_ROOT/server.js
