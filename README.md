@@ -1,29 +1,115 @@
-# Installation
+# restify-abstract-config
+
+[![NPM](https://img.shields.io/npm/v/restify-abstract-config.svg)](https://www.npmjs.com/package/restify-abstract-config)
+
+## Install
 
     $ npm install restify-abstract-config
 
+## Usage
+
+Use the `AbstractAPI` class to fast track configuring Restify HTTP methods to your
+own concrete type's instance methods.
+
+For example:
+
+```javascript
+// $PROJECT_ROOT/app/routes/some-custom-api.js
+"use strict";
+
+const Endpoint = require("restify-abstract-config").Endpoint;
+const AbstractAPI = require("restify-abstract-config").AbstractAPI;
+
+class SomeCustomAPI extends AbstractAPI {
+    constructor() {
+
+        super();
+
+        this.addGet(new Endpoint("get", "/api/custom/:id", this.get));
+        this.addGet(new Endpoint("getAll", "/api/custom", this.getAll));
+
+        this.addPut(new Endpoint("update", "/api/custom/:id", this.update));
+
+        this.addDelete(new Endpoint("delete", "/api/custom/:id", this.delete));
+
+        this.addPost(new Endpoint("create", "/api/custom", this.create));
+
+    }
+
+    get(req, res, next) {
+        res.send('get');
+        next();
+    }
+
+    getAll(req, res, next) {
+        res.send('getAll');
+        next();
+    }
+
+    update(req, res, next) {
+        res.send('update');
+        next();
+    }
+
+    delete(req, res, next) {
+        res.send('delete');
+        next();
+    }
+
+    create(req, res, next) {
+        res.send('create');
+        next();
+    }
+
+}
+
+module.exports = new SomeCustomAPI();
+```
+
+What is important here is that the `server` in following code snippet is the
+instance you get after executing `createServer()` on the `restify` module (This
+is showcased in another code snippet below).
+
+Execute the setup of your routes above as follows (of course you can invoke this
+as you see fit in your own code base):
+
+```javascript
+// $PROJECT_ROOT/app/routes/index.js
+"use strict";
+
+const someCustomAPI = require("./some-custom-api");
+
+module.exports = {
+
+    setup: function(server) {
+
+        someCustomAPI.setupRoutes(server);
+
+    }
+
+}
+```
+
+Ensure that the above `setup` function is called again eg:
+
+```javascript
+// $PROJECT_ROOT/server.js
+"use strict";
+
+let restify = require('restify');
+let routes = require("./app/routes");
+
+let server = restify.createServer();
+routes.setup(server);
+
+server.listen(8080, function() {
+    console.log('%s listening at %s', server.name, server.url);
+});
+```
+
 ## License
 
-The MIT License (MIT)
-Copyright (c) 2016 Gerrit Grobbelaar
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+[MIT](LICENSE)
 
 ## Bugs
 

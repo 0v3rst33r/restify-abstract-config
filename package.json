@@ -1,6 +1,6 @@
 {
   "name": "restify-abstract-config",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Abstract config system for your Restify endpoints",
   "main": "lib/index.js",
   "directories": {
