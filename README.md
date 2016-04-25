@@ -17,7 +17,6 @@ For example:
 // $PROJECT_ROOT/app/routes/some-custom-api.js
 "use strict";
 
-const Endpoint = require("restify-abstract-config").Endpoint;
 const AbstractAPI = require("restify-abstract-config").AbstractAPI;
 
 class SomeCustomAPI extends AbstractAPI {
@@ -25,14 +24,14 @@ class SomeCustomAPI extends AbstractAPI {
 
         super();
 
-        this.addGet(new Endpoint("get", "/api/custom/:id", this.get));
-        this.addGet(new Endpoint("getAll", "/api/custom", this.getAll));
+        this.addGet("/api/custom/:id", this.get);
+        this.addGet("/api/custom", this.getAll);
 
-        this.addPut(new Endpoint("update", "/api/custom/:id", this.update));
+        this.addPut("/api/custom/:id", this.update);
 
-        this.addDelete(new Endpoint("delete", "/api/custom/:id", this.delete));
+        this.addDelete("/api/custom/:id", this.delete);
 
-        this.addPost(new Endpoint("create", "/api/custom", this.create));
+        this.addPost("/api/custom", this.create);
 
     }
 
