@@ -24,14 +24,14 @@ class SomeCustomAPI extends AbstractAPI {
 
         super();
 
-        this.addGet("/api/custom/:id", this.get);
-        this.addGet("/api/custom", this.getAll);
+        this.addGet("get", "/api/custom/:id", this.get);
+        this.addGet("getAll", "/api/custom", this.getAll);
 
-        this.addPut("/api/custom/:id", this.update);
+        this.addPut("update", "/api/custom/:id", this.update);
 
-        this.addDelete("/api/custom/:id", this.delete);
+        this.addDelete("delete", "/api/custom/:id", this.delete);
 
-        this.addPost("/api/custom", this.create);
+        this.addPost("create", "/api/custom", this.create);
 
     }
 
