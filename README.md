@@ -84,6 +84,12 @@ module.exports = {
 
         someCustomAPI.setupRoutes(server);
 
+        //Print this API's endpoints
+        someCustomAPI.endpointsInfo();
+
+        //Print all the Restify-configured routes
+        someCustomAPI.allRoutesInfo(server);
+
     }
 
 }
