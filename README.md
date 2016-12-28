@@ -15,7 +15,7 @@ For example:
 
 ```javascript
 // $PROJECT_ROOT/app/routes/some-custom-api.js
-"use strict";
+'use strict';
 
 const AbstractAPI = require("restify-abstract-config").AbstractAPI;
 
@@ -24,14 +24,14 @@ class SomeCustomAPI extends AbstractAPI {
 
         super();
 
-        this.addGet("get", "/api/custom/:id", this.get);
-        this.addGet("getAll", "/api/custom", this.getAll);
+        this.addGet('get', '/api/custom/:id', this.get);
+        this.addGet('getAll', '/api/custom', this.getAll);
 
-        this.addPut("update", "/api/custom/:id", this.update);
+        this.addPut('update', '/api/custom/:id', this.update);
 
-        this.addDelete("delete", "/api/custom/:id", this.delete);
+        this.addDelete('delete', '/api/custom/:id', this.delete);
 
-        this.addPost("create", "/api/custom", this.create);
+        this.addPost('create', '/api/custom', this.create);
 
     }
 
@@ -74,9 +74,9 @@ as you see fit in your own code base):
 
 ```javascript
 // $PROJECT_ROOT/app/routes/index.js
-"use strict";
+'use strict';
 
-const someCustomAPI = require("./some-custom-api");
+const someCustomAPI = require('./some-custom-api');
 
 module.exports = {
 
@@ -95,14 +95,23 @@ module.exports = {
 }
 ```
 
+If you want the version of your project's `package.json` available at an endpoint as well, be sure to provide
+a second argument to the above `setupRoutes` function:
+
+```javascript
+someCustomAPI.setupRoutes(server, '/api/version');
+```
+
+You can use an endpoint URL of your choice.
+
 Ensure that the above `setup` function is called again eg:
 
 ```javascript
 // $PROJECT_ROOT/server.js
-"use strict";
+'use strict';
 
 let restify = require('restify');
-let routes = require("./app/routes");
+let routes = require('./app/routes');
 
 let server = restify.createServer();
 routes.setup(server);
